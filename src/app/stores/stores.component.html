@@ -1,0 +1,95 @@
+<div>
+    <h2>Stores table</h2>
+    <form  class="search">
+        <input type="text" placeholder="Search store" (keyup)="searchInput.next($any($event.target).value)">
+    </form>
+    <div>
+      <button class="order-button" (click)="orderByIncomeAsc()" >Order By Income Asc</button>
+      <button class="order-button" (click)="orderByIncomeDesc()">Order By Income Desc</button>
+    </div>
+    <div>
+      <button class="order-button" (click)="getOldestStore()">Oldest store</button>
+    </div>
+    <table class = "table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Owner Name</th>
+          <th>Monthy Income</th>
+          <th>Active Since</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let store of storesList">
+          <td>{{store.id}}</td>
+          <td>{{store.name}}</td>
+          <td>{{store.city}}</td>
+          <td>{{store.country}}</td>
+          <td>{{store.ownerName}}</td>
+          <td>{{store.monthlyIncome}}</td>
+          <td>{{store.activeSince}}</td>
+          <td>
+            <button class="action-button" (click)="revealEditForm(store)">Edit</button>
+            <button class="action-button" (click)="deleteStore(store.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="revealAddForm()">Add Store Form</button>
+    <div *ngIf="showAddForm">
+      <h2>Add store</h2>
+      <form (ngSubmit)="addStore()" >
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" name="name" [(ngModel)]="store.name" required>
+        </div>
+        <div>
+          <label for="city">City:</label>
+          <input type="text" name="city" [(ngModel)]="store.city" required>
+        </div>
+        <div>
+          <label for="country">Country:</label>
+          <input type="text" name="country" [(ngModel)]="store.country" required>
+        </div>
+        <div>
+          <label for="ownerName">Owner Name:</label>
+          <input type="text" name="ownerName" [(ngModel)]="store.ownerName" required>
+        </div>
+        <div>
+          <label for="monthlyIncome">Monthly Income:</label>
+          <input type="text" name="monthlyIncome" [(ngModel)]="store.monthlyIncome" required>
+        </div>
+        <button type="submit">Add Store</button>
+      </form>
+    </div>
+    <div *ngIf="showEditForm">
+      <h2>Edit Store Form</h2>
+      <form (ngSubmit)="editStore(storeToBeEdited)">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" name="name" [(ngModel)]="storeToBeEdited.name" required>
+        </div>
+        <div>
+          <label for="city">City:</label>
+          <input type="text" name="city" [(ngModel)]="storeToBeEdited.city" required>
+        </div>
+        <div>
+          <label for="country">Country:</label>
+          <input type="text" name="country" [(ngModel)]="storeToBeEdited.country" required>
+        </div>
+        <div>
+          <label for="ownerName">Owner Name:</label>
+          <input type="text" name="ownerName" [(ngModel)]="storeToBeEdited.ownerName" required>
+        </div>
+        <div>
+          <label for="monthlyIncome">Monthly Income:</label>
+          <input type="text" name="monthlyIncome" [(ngModel)]="storeToBeEdited.monthlyIncome" required>
+        </div>
+        <button type="submit">Edit Store</button>
+      </form>
+    </div>
+  </div>
